@@ -24,6 +24,7 @@ public class BucketQueue<E> extends Collection<E> implements PriorityQueueIF<E> 
 
 		/* Constructor por defecto */
 		protected PriorityQueueIterator() {
+			
 			// No inicializar iterCola en caso de que no haya ninguna cola
 
 			this.iterLista = lista.iterator();

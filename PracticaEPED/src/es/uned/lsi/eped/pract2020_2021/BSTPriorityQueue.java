@@ -20,22 +20,49 @@ public class BSTPriorityQueue<E> extends Collection<E> implements PriorityQueueI
 	public class PriorityQueueIterator implements IteratorIF<E> {
 
 		// LA DEFINICIÓN DE LOS ATRIBUTOS DE LA CLASE ES TAREA DE CADA ESTUDIANTE
-		IteratorIF<SamePriorityQueue<E>> iterArbol;
+		IteratorIF<SamePriorityQueue<E>> iterArbol;		
+		IteratorIF<E> iterCola;
+		
 		/* Constructor por defecto */
 		protected PriorityQueueIterator() {
+			
+			this.iterArbol = arbol.iterator(IteratorModes.DIRECTORDER);
+			if (iterArbol.hasNext()) {
+				iterCola = iterArbol.getNext().iterator();
+			} else {
+				System.out.println("Lista vacía,  PriorityQueueIterator()");
+			}
+			
+			
 		}
 
-		/* Devuelve el siguiente elemento de la iteraciÃ³n */
+		/* Devuelve el siguiente elemento de la iteración */
 		public E getNext() {
+			
+			if (arbol.isEmpty()) {
+				System.out.println("Lista vacía.");
+			} else {
+				while (iterCola.hasNext()) {
+					E paciente = iterCola.getNext();
+					if (!iterCola.hasNext()) {
+						if (iterArbol.hasNext())
+							iterCola = iterArbol.getNext().iterator();
+					}					
+					return paciente;
+				}
+			}
+
 			return null;
+			
 		}
 
-		/* Comprueba si queda algÃºn elemento por iterar */
+		/* Comprueba si queda algún elemento por iterar */
 		public boolean hasNext() {
-			return false;
+			boolean comprobado = iterCola.hasNext();
+			return comprobado;
 		}
 
-		/* Reinicia el iterador a la posiciÃ³n inicial */
+		/* Reinicia el iterador a la posición inicial */
 		public void reset() {
 			iterArbol.reset();
 		}
